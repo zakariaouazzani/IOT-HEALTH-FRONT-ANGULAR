@@ -1,0 +1,43 @@
+
+
+
+
+<div class="container md-5">
+  <div class="row">
+   
+    <div class="header">
+      <img  height="50"
+      alt=""
+      loading="lazy"
+      style="margin-top: -1px;" src="assets/img8.png" alt="Your Image">
+      <h1>ACTI SENS | LOGIN</h1>
+    </div>
+
+
+    <br><br>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="mb-3">
+        <label for="mac" class="form-label">Mac Address *</label>
+        <input type="text" class="form-control" id="mac" name="mac" aria-describedby="macHelp" [(ngModel)]="mac" required>
+       
+      <div class="mb-3">
+        <label for="password" class="form-label">Password *</label>
+        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+      </div>
+    </div>
+
+    <div class="text-danger" [hidden]="login_is_correct">
+      Mac Address Or Password Incorrect ! 
+
+    </div>
+    <br>
+
+      <button class="btn btn-success" type="submit" [disabled]="!loginForm.valid">Login</button> | 
+      <button class="btn btn-success" (click)="navigateToRegister()">Not registered yet?</button>
+
+    </form>
+
+
+  </div>
+
+</div>

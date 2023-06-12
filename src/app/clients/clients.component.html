@@ -1,0 +1,40 @@
+<br>
+
+<h2 class="text-center">Client Informations</h2>
+<button class="btn btn-success" (click)="onAdd()">Add Patient</button>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Table section content -->
+        <div class="table-section">
+
+
+<table class="table table-bordered ">
+    <thead>
+      <tr>
+        <th>Patient / Client</th>
+        <th>Mac Address</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+      <tr *ngFor="let item of clients">
+        <td>{{ item.nom + " " +item.prenom }}</td>
+        <td>{{ item.mac}}</td>
+        <td class="text-center">
+            <i class="bi bi-pencil-square" (click)="onEdit(item.id!)"></i> |
+            <i class="bi bi-trash3-fill" (click)="onDelete(item.id!)"></i> | 
+            <i class="bi bi-eye-fill" (click)="onViewClientDetails(item.id!)"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+</div>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<app-navigation-bar></app-navigation-bar>
+<div class="container">
+    <form [formGroup]="addClientForm" class="mt-4" (ngSubmit)="onSubmit()" *ngIf="addClientForm">
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">Mac Address</label>
+            <input type="text" class="form-control" [disabled]="true" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Mac" formControlName="mac">
+        </div>
+    
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">nom</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="nom" formControlName="nom">
+        </div>
+    
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">prenom</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="prenom" formControlName="prenom">
+        </div>
+    
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">mail</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="mail" formControlName="mail">
+        </div>
+    
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">adresse</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="adresse" formControlName="adresse">
+        </div>
+    
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">tel</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="tel" formControlName="tel">
+        </div>
+
+        <button class="btn btn-success">Add Client</button>
+    </form>
+</div>
