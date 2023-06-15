@@ -9,7 +9,6 @@ while True:
     formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 
     print(formatted_datetime)
-
     url = "http://localhost:8088/addHeartbeatClient"
     data = {
         "mac": "AC:41:5F:85:C8:60",  
@@ -25,4 +24,4 @@ while True:
     print(response.json())
 
     # Delay for 5 seconds
-    time.sleep(5)
+    time.sleep(1)

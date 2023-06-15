@@ -35,6 +35,7 @@ export class LoginComponent {
   login() {
     this.loginService.login(this.mac, this.password).subscribe(
       (response: any) => {
+        this.toastr.success('Logged In Successfully');
         // Login successful
         response = JSON.parse(response);
         //console.log(response);

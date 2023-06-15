@@ -61,14 +61,23 @@ export class ClientDetailsComponent {
   ngOnInit() {    
     
     const id = this.activatedRoute.snapshot.params['id'];
-    setInterval(()=>{
-      this.initHeartBeat(id);
-    }, 700)
-    
-    this.clientService.getCLientByid(id).subscribe({
+    this.initHeartBeat(id);
+    this.heartbeatService.heartBeatsSubject.subscribe({
       next: (data: any) => {
         //console.log(data);
-        this.client = data;
+        this.series.monthDataSeries1.dates  = [];
+        this.series.monthDataSeries1.data1 = [];
+        for (const heartbeat of data) {
+          if (heartbeat.data1) {
+            // console.log(heartbeat);
+            
+           this.series.monthDataSeries1.data1.push(heartbeat.data1);
+           this.series.monthDataSeries1.dates.push(heartbeat.date_prelevement!.toString());
+            //console.log(heartbeat.date_prelevement)
+            
+          }
+        }
+
         this.chartOptions = {
           series: [
             {
@@ -81,6 +90,9 @@ export class ClientDetailsComponent {
             type: "area",
             height: 350,
             zoom: {
+              enabled: false
+            },
+            animations: {
               enabled: false
             }
           },
@@ -109,37 +121,20 @@ export class ClientDetailsComponent {
           },
           legend: {
             horizontalAlign: "left"
-          }
+          },
+          
         };
-      },
-      error: (error: any) => {
-        console.log(error);
       }
     })
+    setInterval(() => {
+      this.initHeartBeat(id);
+    }, 1000)
+    
   }
 
   initHeartBeat(id :number){
     
-    this.heartbeatService.getHeartbeatsByClient(id).subscribe({
-      next:(data : any)=>{
-        //this.clients = data ; 
-        this.heartbeats = data;
-        console.log(this.heartbeats);
-        for (const heartbeat of this.heartbeats) {
-          if (heartbeat.data1) {
-           this.series.monthDataSeries1.data1.push(heartbeat.data1);
-           this.series.monthDataSeries1.dates.push(heartbeat.date_prelevement!.toString());
-            //console.log(heartbeat.date_prelevement)
-            
-          }
-        }
-
-
-      },
-      error:(error)=>{
-        console.log(error);
-      }
-    })
+    this.heartbeatService.getHeartbeatsByClient(id).subscribe()
 
   }
 
