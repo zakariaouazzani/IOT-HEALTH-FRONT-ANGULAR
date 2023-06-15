@@ -1,6 +1,10 @@
 <!-- <h1>{{client?.nom}}</h1> -->
 <app-navigation-bar></app-navigation-bar>
 <app-navigation2></app-navigation2>
+
+<div class="container">
+
+
 <div id="chart" *ngIf="chartOptions">
     <apx-chart
       [series]="chartOptions.series!"
@@ -15,3 +19,7 @@
       [subtitle]="chartOptions.subtitle!"
     ></apx-chart>
   </div>
+
+ 
+
+</div>

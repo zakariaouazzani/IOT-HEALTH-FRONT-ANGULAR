@@ -67,7 +67,7 @@ export class ClientsComponent {
     this.clientService.fetchData().subscribe({
       next:(data : any)=>{
         this.clients = data ; 
-        console.log(data);
+        //console.log(data);
 
       },
       error:(error)=>{

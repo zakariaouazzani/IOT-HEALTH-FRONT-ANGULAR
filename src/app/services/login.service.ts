@@ -1,13 +1,18 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StorageService } from './storage.service';
+import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
   })
   export class LoginService {
-    private loginUrl = 'http://localhost:8088/login'; // Replace with your API endpoint URL
+    private loginUrl = 'http://localhost:8088/login'; 
     private registerUrl = 'http://localhost:8088/saveClient'
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+      private storage : StorageService,
+      private router : Router
+      ) { }
   
     login(mac: string, password: string) {
       const requestBody = { mac, password };
@@ -29,4 +34,8 @@ import { Injectable } from '@angular/core';
         });    }
 
 
+        logout(): void {
+          this.storage.clearData();
+          this.router.navigate(['/']);
+        }
   }

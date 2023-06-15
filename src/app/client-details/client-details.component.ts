@@ -13,6 +13,8 @@ import {
   ApexTitleSubtitle,
   ApexLegend
 } from "ng-apexcharts";
+import { HeartbeatService } from '../services/heartbeat.service';
+import { HeartBeat } from '../models/heartbeat';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -34,57 +36,16 @@ export type ChartOptions = {
 })
 export class ClientDetailsComponent {
   client!: Client;
-
+  heartbeats: HeartBeat []  = [];
    series = {
     monthDataSeries1: {
-      prices: [
-        8107.85,
-        8128.0,
-        8122.9,
-        8165.5,
-        8340.7,
-        8423.7,
-        8423.5,
-        8514.3,
-        8481.85,
-        8487.7,
-        8506.9,
-        8626.2,
-        8668.95,
-        8602.3,
-        8607.55,
-        8512.9,
-        8496.25,
-        8600.65,
-        8881.1,
-        9340.85,
-        2,
-        4,
-      ],
+      data1: [
+        
+      ] as number[],
       dates: [
-        "13 Nov 2017",
-        "14 Nov 2017",
-        "15 Nov 2017",
-        "16 Nov 2017",
-        "17 Nov 2017",
-        "20 Nov 2017",
-        "21 Nov 2017",
-        "22 Nov 2017",
-        "23 Nov 2017",
-        "24 Nov 2017",
-        "27 Nov 2017",
-        "28 Nov 2017",
-        "29 Nov 2017",
-        "30 Nov 2017",
-        "01 Dec 2017",
-        "04 Dec 2017",
-        "05 Dec 2017",
-        "06 Dec 2017",
-        "07 Dec 2017",
-        "08 Dec 2017",
-        "09 Dec 2017",
-        "10 Dec 2017",
-      ]
+     
+
+      ] as string [],
     },
   };
   
@@ -93,20 +54,27 @@ export class ClientDetailsComponent {
   public chartOptions!: Partial<ChartOptions>;
 
 
-  constructor(private activatedRoute: ActivatedRoute, private clientService: ClientService) {}
+  constructor(private activatedRoute: ActivatedRoute, private clientService: ClientService,
+    private heartbeatService : HeartbeatService
+    ) {}
 
-  ngOnInit() {
+  ngOnInit() {    
+    
     const id = this.activatedRoute.snapshot.params['id'];
+    setInterval(()=>{
+      this.initHeartBeat(id);
+    }, 700)
+    
     this.clientService.getCLientByid(id).subscribe({
       next: (data: any) => {
-        console.log(data);
+        //console.log(data);
         this.client = data;
         this.chartOptions = {
           series: [
             {
               name: "STOCK ABC",
-              data: []
-              //data: this.series.monthDataSeries1.prices
+              //data: []
+              data: this.series.monthDataSeries1.data1
             }
           ],
           chart: {
@@ -124,20 +92,20 @@ export class ClientDetailsComponent {
           },
     
           title: {
-            text: "Fundamental Analysis of Stocks",
+            text: "HeartBeat Monitor ",
             align: "left"
           },
           subtitle: {
-            text: "Price Movements",
+            text: "BPM",
             align: "left"
           },
-          // labels: this.series.monthDataSeries1.dates,
-          labels: [],
+          labels: this.series.monthDataSeries1.dates,
+          //labels: [],
           xaxis: {
             type: "datetime"
           },
           yaxis: {
-            opposite: true
+            opposite: false
           },
           legend: {
             horizontalAlign: "left"
@@ -149,4 +117,30 @@ export class ClientDetailsComponent {
       }
     })
   }
+
+  initHeartBeat(id :number){
+    
+    this.heartbeatService.getHeartbeatsByClient(id).subscribe({
+      next:(data : any)=>{
+        //this.clients = data ; 
+        this.heartbeats = data;
+        console.log(this.heartbeats);
+        for (const heartbeat of this.heartbeats) {
+          if (heartbeat.data1) {
+           this.series.monthDataSeries1.data1.push(heartbeat.data1);
+           this.series.monthDataSeries1.dates.push(heartbeat.date_prelevement!.toString());
+            //console.log(heartbeat.date_prelevement)
+            
+          }
+        }
+
+
+      },
+      error:(error)=>{
+        console.log(error);
+      }
+    })
+
+  }
+
 }

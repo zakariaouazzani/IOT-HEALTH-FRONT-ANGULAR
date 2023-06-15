@@ -5,6 +5,8 @@ import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
  import { HotToastService, Toast } from '@ngneat/hot-toast';
  import { ToastrService } from 'ngx-toastr';
+import { Client } from '../models/clients';
+import { StorageService } from '../services/storage.service';
 
 
 @Component({
@@ -17,10 +19,12 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   mac: string ="";
   password: string ="";
+  client!: Client ; 
   login_is_correct = true;
   constructor(private loginService: LoginService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private storage : StorageService
     ) { }
 
 
@@ -32,13 +36,13 @@ export class LoginComponent {
     this.loginService.login(this.mac, this.password).subscribe(
       (response: any) => {
         // Login successful
-        if (response === 'Login successful') {
-          // Handle successful login
-          console.log("success")
+        response = JSON.parse(response);
+        //console.log(response);
+        if (response.message === "Login successful") {
+          this.storage.setClient(response.client)
+          this.storage.setToken(response.token)
           this.router.navigate(['/dashboard']);
-        } else {
-          // Handle unsuccessful login
-           console.log("Nsuccess");
+        } else if(response.message === "Adresse Mac or Password Incorrect") {
            this.login_is_correct = false; 
           //this.toastr.error('Hello world!', 'Toastr fun!');
         }
