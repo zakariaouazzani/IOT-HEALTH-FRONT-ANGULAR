@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AddClientComponent } from './add-client/add-client.component';
 
 
+
 registerLocaleData(fr);
 
 @NgModule({

@@ -21,6 +21,7 @@ export class LoginComponent {
   password: string ="";
   client!: Client ; 
   login_is_correct = true;
+  client_type :boolean= true;
   constructor(private loginService: LoginService,
     private router: Router,
     private toastr: ToastrService,
@@ -54,4 +55,16 @@ export class LoginComponent {
       }
     );
   }
+
+
+
+  setClient(){
+    this.client_type = true; 
+    
+  }
+  setDoctor(){
+    this.client_type = false; 
+
+  }
+  
 }
