@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
     providedIn: 'root'
   })
   export class LoginService {
-    private loginUrl = 'http://localhost:8088/login'; 
-    private registerUrl = 'http://localhost:8088/saveClient'
+    private loginUrl = 'http://35.197.209.87:8080/login'; 
+    private registerUrl = 'http://35.197.209.87:8080/saveClient'
     constructor(private http: HttpClient,
       private storage : StorageService,
       private router : Router

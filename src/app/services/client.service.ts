@@ -27,25 +27,34 @@ export class ClientService {
 
 
   deleteClient(id: number) {
-    return this.http.delete(`http://localhost:8088/deleteClient/${id}`);
+    
+    return this.http.delete(`http://35.197.209.87:8080/deleteClient/${id}`);
+    //return this.http.delete(`http://localhost:8088/deleteClient/${id}`);
   }
    
   fetchData() {
-    return this.http.get('http://localhost:8088/listClients');
+    return this.http.get('http://35.197.209.87:8080/listClients');
+    //return this.http.get('http://localhost:8088/listClients');
   }
 
   getCLientByid(id: number) {
-    return this.http.get(`http://localhost:8088/getClientById/${id}`);
+    return this.http.get(`http://35.197.209.87:8080/getClientById/${id}`);
+
+    //return this.http.get(`http://localhost:8088/getClientById/${id}`);
   }   
 
 
   editClient(IdClient: number, client :Client ){
-    return this.http.put(`http://localhost:8088/updateClient/${IdClient}`, client);
+    return this.http.put(`http://35.197.209.87:8080/updateClient/${IdClient}`, client);
+
+    //return this.http.put(`http://localhost:8088/updateClient/${IdClient}`, client);
   }
 
   addClient(client :Client ){
     // this.toastr.success('Client Added Sucessfully');
-    return this.http.post(`http://localhost:8088/saveClient`, client);
+    return this.http.post(`http://35.197.209.87:8080/saveClient`, client);
+
+    //return this.http.post(`http://localhost:8088/saveClient`, client);
     
   }
 }

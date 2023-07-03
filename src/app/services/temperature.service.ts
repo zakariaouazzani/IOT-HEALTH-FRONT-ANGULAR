@@ -17,7 +17,7 @@ export class TemperatureService {
   getTemperaturesByClient(id:number) {
     // size ==> 10000 / 10 = nbr pages 
 
-    return this.http.get(`http://localhost:8088/getTemperaturesByClient/${id}?pageNo=0&pageSize=10`).pipe(
+    return this.http.get(`http://35.197.209.87:8080/getTemperaturesByClient/${id}?pageNo=0&pageSize=10`).pipe(
       tap((data: any) => {
         //console.log(data);
         
